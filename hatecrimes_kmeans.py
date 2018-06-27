@@ -10,7 +10,8 @@ Kmeans clustering on hate crime data from FiveThiryEight
 import numpy as np
 from sklearn.cluster import KMeans
 from sklearn import preprocessing as pp
-
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
 
 # Read in data from csv file
 datafile= "hate_crimes.csv"
@@ -33,7 +34,7 @@ states = np.genfromtxt(datafile, dtype='str', skip_header=1, usecols=0, delimite
 
 
 
-#Fill in missing values with the column means
+#Fill in missing feature values with the mean value of that feature
 missing = np.isnan(hc_all)
 colmeans = np.nanmean(hc_all, 0)
 hc_full = np.where(missing, colmeans, hc_all)
@@ -46,6 +47,7 @@ K = 5; #CHANGE the number of clusters generated
 kmeans = KMeans(n_clusters=K).fit(hc_full) #CHANGE to hc_scale to see what happens!
 lbl = kmeans.labels_
 centers = kmeans.cluster_centers_
+y_kmeans = kmeans.predict(hc_full)
 
 for k in range(K): #For each generated cluster
     pos= [n for (n,m) in enumerate(lbl) if m==k] #Get the indices in the labels vector which point ot that cluster
@@ -56,6 +58,10 @@ for k in range(K): #For each generated cluster
     print(centers[k])
     print('\n')
     
-   
-    
-    
+#Principal Component Analysis
+
+pca = PCA(n_components = 2)
+pca.fit(hc_full)
+print(pca)
+hc_dim = pca.transform(hc_full)
+plt.scatter(hc_dim[:,0], hc_dim[:,1], c=y_kmeans) 
