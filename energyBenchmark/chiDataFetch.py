@@ -11,10 +11,14 @@ Python requests library to connect to API endpoint
 
 from requests import get 
 import json
+import pandas as pd
 
-energyData = get("https://data.cityofchicago.org/resource/jaif-n74j.json")
+r = get("https://data.cityofchicago.org/resource/9wsh-b774.json")
 
+print(r.status_code)
 
-print(energyData.status_code)
+print(r.text)
 
-print(energyData.content)
+energyData = r.json()
+
+print(energyData)

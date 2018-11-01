@@ -36,13 +36,9 @@ ggplot(data, aes(x = median_household_income, y = share_unemployed_seasonal)) +
 
 
 #Multiple regression
-multi.mod <- lm(avg_hatecrimes_per_100k_fbi~ share_white_poverty+ share_voters_voted_trump+ gini_index, data = data)
+#multi.mod <- lm(avg_hatecrimes_per_100k_fbi~ share_white_poverty+ share_voters_voted_trump+ gini_index, data = data)
 
 #plot the data:
-plot(linear.mod)
+#plot(linear.mod)
 
-#principal component regression
 
-pcr_fit = pcr(data, avg_hatecrimes_per_100k_fbi)
-coef(mod, comps=1:4)
-summary(pcr_fit)
